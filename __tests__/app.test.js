@@ -109,6 +109,8 @@ describe('iDunno routes', () => {
       quote: 'This lab is amazin',
     });
 
+    oldProfile.quote = 'This lab is amazin';
+
     const res = await request(app)
       .put(`/api/v1/profiles/${oldProfile.id}`);
 
