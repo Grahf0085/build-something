@@ -43,4 +43,50 @@ describe('iDunno routes', () => {
       quote: expect.any(String),
     });
   });
+
+  it('gets all profiles', async () => {
+
+    const oneProfile = await Profile.insert({
+      email: 'bleh@tutanota.com',
+      accountId: 'grahf1',
+    });    
+
+    const twoProfile = await Profile.insert({
+      email: 'blah@tutanota.com',
+      accountId: 'grahf2',
+    });
+
+    const threeProfile = await Profile.insert({
+      email: 'blek@tutanota.com',
+      accountId: 'grahf3',
+    });
+
+    console.log(threeProfile);
+
+    const res = await request(app).get('/api/v1/profiles');
+
+    expect(res.body).toEqual([{ ...oneProfile, quote: expect.any(String) }, { ...twoProfile, quote: expect.any(String) }, { ...threeProfile, quote: expect.any(String) }
+    ]);
+
+  });
+
+  it('removes quote from a profile', async () => {
+
+    const badQuote = await Profile.insert({
+      email: 'abcd@tutanota.com',
+      accountId: '1234',
+      quote: 'dkjgdgiudsfdsnfndsflhdsdskfbnodsnf'
+    });
+
+    const res = await request(app)
+      .delete(`/api/v1/profiles/${badQuote.id}`);
+
+    expect(res.body).toEqual({
+      id: '1',
+      email: 'abcd@tutanota.com',
+      accountId: '1234',
+    });
+
+  });
 });
+
