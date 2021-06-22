@@ -17,13 +17,15 @@ describe('iDunno routes', () => {
       .post('/api/v1/profiles')
       .send({
         email: 'tuckerhoog@tutanota.com',
-        accountId: 'grahf'
+        accountId: 'grahf',
       });
+
       
     expect(res.body).toEqual({
       id: '1',
       email: 'tuckerhoog@tutanota.com',
-      accountId: 'grahf'
+      accountId: 'grahf',
+      quote: expect.any(String)
     });
   });
 
@@ -73,7 +75,6 @@ describe('iDunno routes', () => {
     const badQuote = await Profile.insert({
       email: 'abcd@tutanota.com',
       accountId: '1234',
-      quote: 'dkjgdgiudsfdsnfndsflhdsdskfbnodsnf'
     });
 
     const res = await request(app)
