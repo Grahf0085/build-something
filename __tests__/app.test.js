@@ -1,8 +1,10 @@
+import dotenv from 'dotenv';
 import pool from '../lib/utils/pool.js';
 import setup from '../data/setup.js';
 import request from 'supertest';
 import app from '../lib/app.js';
 import Profile from '../lib/models/Profile.js';
+dotenv.config();
 
 describe('iDunno routes', () => {
   
@@ -25,7 +27,7 @@ describe('iDunno routes', () => {
     });
   });
 
-  it('get a profile and qoote by id', async () => {
+  it('get a profile and quote by id', async () => {
 
     await Profile.insert({
       email: 'tuckerhoog@tutanota.com',
