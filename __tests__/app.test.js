@@ -100,5 +100,25 @@ describe('iDunno routes', () => {
     expect(res.body).toEqual(badProfile);
   });
 
+  it('updates a quote', async () => {
+
+    const oldProfile = await Profile.insert({
+      email: '1234@tutanota.com',
+      accountId: '0000',
+      quote: 'This lab is amazin',
+    });
+
+    const res = await request(app)
+      .put(`/api/v1/profiles/${oldProfile.id}`);
+
+    expect(res.body).toEqual({
+      id: '1',
+      email: '1234@tutanota.com',
+      accountId: '0000',
+      quote: expect.not.stringContaining('This lab is amazin')
+    });
+
+  });
+
 });
 
